@@ -1,4 +1,5 @@
 import React from 'react';
+//import header from './header'
 import MyAppBar from './MyAppBar';
 // import MyContent from './MyContent';
 import MyClass from './MyClass';
@@ -7,25 +8,34 @@ import moment from 'moment';
 class App extends React.Component {
 	constructor() {
 		super();
-		this.state = { selectedClass: '', addStudent: false };
+		this.state = {
+			selectedList: '',
+			addCustomer: false,
+			totalCustomers: 0,
+		};
 	}
 
-	handleClassChange = (selectedClass) => {
-		console.log('App chọn: ', selectedClass);
+	handleClassChange = (selectedList) => {
+		// console.log('App chọn: ', selectedClass);
 		this.setState({
-			selectedClass: selectedClass,
-			newStudent: null,
-			className: this.state.selectedClass,
+			selectedList: selectedList,
+			newCustomer: null,
+			className: this.state.selectedList,
 		});
 	};
 
-	handleAddStudent = () => {
-		console.log('App thêm sinh viên vào lớp: ', this.state.selectedClass);
-		this.addNewStudent();
+	handleAddCustomer = () => {
+		// console.log('App thêm sinh viên vào lớp: ', this.state.selectedClass);
+		this.addNewCustomer();
 	};
 
-	addNewStudent = () => {
-		// console.log('addNewStudent');
+	handleTotalCustomers = (totalCustomers) => {
+		// console.log('handleTotalCustomers: ', totalCustomers);
+		this.setState({ totalCustomers: totalCustomers, newCustomer: null });
+	};
+
+	addNewCustomer = () => {
+		// console.log('addNewCustomer');
 		fetch('https://randomuser.me/api/?results=1')
 			.then((res) => res.json())
 			.then(
@@ -45,7 +55,7 @@ class App extends React.Component {
 					});
 					// console.log('dataWithId', dataWithId);
 					this.setState({
-						newStudent: dataWithId[0],
+						newCustomer: dataWithId[0],
 						className: this.state.selectedClass,
 					});
 				},
@@ -59,14 +69,15 @@ class App extends React.Component {
 		return (
 			<div>
 				<MyAppBar
-					classes={[{ id: 1, value: 'một' }]}
 					handleSelectClassChange={this.handleClassChange}
-					handleAddStudent={this.handleAddStudent}
+					handleAddCustomer={this.handleAddCustomer}
+					totalCustomers={this.state.totalCustomers}
 				/>
 				<br />
 				<MyClass
-					newStudent={this.state.newStudent}
-					className={this.state.selectedClass}
+					newCustomer={this.state.newCustomer}
+					className={this.state.selectedList}
+					handleTotalCustomers={this.handleTotalCustomers}
 				/>
 			</div>
 		);

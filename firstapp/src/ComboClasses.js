@@ -8,16 +8,18 @@ class ComboClasses extends React.Component {
 		super(props);
 		this.state = {
 			data: [
-				{ year: 2020, name: 'Lớp 12 A1' },
-				{ year: 2021, name: 'Lớp 11 A8' },
+				{ year: 2021, name: 'Danh sách khách hàng thân thiết' },
+				{ year: 2021, name: 'Danh sách khách hàng vip' },
+                { year: 2021, name: 'Danh sách khách hàng may mắn' },
+                { year: 2021, name: 'Danh sách khách hàng đã xóa' },
 			],
-			selectedClass: '',
+			selectedList: '',
 		};
 	}
 
 	handleChange = (event, value) => {
 		// console.log('ComboClasses chọn lớp: ', value);
-		this.setState({ selectedClass: value?.name });
+		this.setState({ selectedList: value?.name });
 		this.props.handleChange(value?.name);
 	};
 
@@ -38,7 +40,7 @@ class ComboClasses extends React.Component {
 							{...params}
 							label=''
 							variant='outlined'
-							placeholder='Chọn lớp'
+							placeholder='Chọn danh sách'
 						/>
 					)}
 				/>

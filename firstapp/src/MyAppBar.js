@@ -84,12 +84,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function MyAppBar({
-	classes,
 	handleSelectClassChange,
-	handleAddStudent,
+	handleAddCustomer,
+	totalCustomers,
 }) {
-	console.log('MyAppBar', classes);
-	const [selectedClass, handleClassChange] = React.useState(0);
+	// console.log('MyAppBar', totalCustomers);
+	const [selectedList, selectClassChange] = React.useState('');
 	const classesStyle = useStyles();
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -114,15 +114,15 @@ export default function MyAppBar({
 		setMobileMoreAnchorEl(event.currentTarget);
 	};
 
-	const handleChange = (selectedClass) => {
+	const handleChange = (selectedList) => {
 		// console.log('MyAppBar chọn: ', selectedClass);
-		handleClassChange(selectedClass);
-		handleSelectClassChange(selectedClass);
+		selectClassChange(selectedList);
+		handleSelectClassChange(selectedList);
 	};
 
-	const addStudent = () => {
-		// console.log('MyAppBar addStudent');
-		handleAddStudent();
+	const addCustomer = () => {
+		// console.log('MyAppBar addCustomer');
+		handleAddCustomer();
 	};
 
 	const menuId = 'primary-search-account-menu';
@@ -202,7 +202,7 @@ export default function MyAppBar({
 						variant='h6'
 						noWrap
 					>
-						Học Material-UI
+						Quản Lý Khách hàng
 					</Typography>
 					<div className={classesStyle.search}>
 						<div className={classesStyle.searchIcon}>
@@ -239,7 +239,8 @@ export default function MyAppBar({
 						<IconButton
 							aria-label='show 18 new notifications'
 							color='inherit'
-							onClick={addStudent}
+							onClick={addCustomer}
+							disabled={!selectedList || selectedList === ''}
 						>
 							<PersonAddIcon />
 						</IconButton>
@@ -247,7 +248,10 @@ export default function MyAppBar({
 							aria-label='show 18 new notifications'
 							color='inherit'
 						>
-							<Badge badgeContent='0' color='secondary'>
+							<Badge
+								badgeContent={totalCustomers}
+								color='secondary'
+							>
 								<PeopleAltIcon />
 							</Badge>
 						</IconButton>
